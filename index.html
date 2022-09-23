@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="/src/index.js" defer></script>
+  </head>
+
+  <body>
+			<button id = "event">Show data</button
+    <div class="center">
+      <h1>Municipality employment statistics in Finland</h1>
+
+      <table id="mytable">
+        <thead>
+          <tr>
+            <th>Municipality</th>
+            <th>Population</th>
+            <th>Employment amount</th>
+            <th>Employment amount-%</th>
+          </tr>
+        </thead>
+
+        <tbody id="content">
+          <script>
+            const dataTable = document.getElementById("mytable");
+
+            async function getData() {
+              const url =
+                "https://statfin.stat.fi/PxWeb/sq/4e244893-7761-4c4f-8e55-7a8d41d86eff";
+              const promise = await fetch(url);
+              const userJSON = await promise.json();
+
+              userJSON.array.forEach((info) => {
+                let tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                let td2 = document.createElement("td");
+
+                td1.innerText = info.dataset.dimension.Alue.category.label;
+                td2.innetText = info.values;
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+
+                dataTable.appendChild(tr);
+              });
+            }
+            getData();
+          </script>
+        </tbody>
+			</table>
+    </div>
+  </body>
+</html>
